@@ -14,12 +14,21 @@ class ActivityController < ApplicationController
 
     if format == "json"
       render json: { random_activity: data }
-
     elsif format == "csv"
-
+      csv = create_csv(data)
+      send_data csv, filename: "random_activities.csv"
     elsif format == "console"
-
+      
     else
+    end
+  end
+
+  private
+
+  def create_csv(data)
+    CSV.generate(headers: true) do |csv|
+      csv << data.first.keys
+      data.each { |activity| csv << activity.values }
     end
   end
 end
