@@ -1,3 +1,6 @@
+require 'net/http'
+require 'csv'
+
 class ActivityController < ApplicationController
   def random_activity
     count = params[:count].to_i
