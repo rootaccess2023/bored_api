@@ -18,8 +18,10 @@ class ActivityController < ApplicationController
       csv = create_csv(data)
       send_data csv, filename: "random_activities.csv"
     elsif format == "console"
-      
+      Rails.logger.info data
+      render plain: "Data logged to the console."
     else
+      render json: { error: "Not a valid format. Use either json, csv or console. Peace ^_^v!" }, status: :bad_request
     end
   end
 
